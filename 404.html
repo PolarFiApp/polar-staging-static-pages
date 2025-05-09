@@ -9,16 +9,21 @@
     }
 
     function openAppOrRedirect() {
-      // Use the current domain as the universal link base
-      var universalLink = window.location.origin + window.location.pathname;
+      // Get the path without the 404.html
+      var path = window.location.pathname.replace('/404.html', '');
+      var universalLink = window.location.origin + path;
       var fallbackUrl = "https://www.polarfi.com";
 
       if (isMobile()) {
         // Try to open the app via universal link
         window.location = universalLink;
+        
         // If app is not installed, after 2s, redirect to website
         setTimeout(function() {
-          window.location = fallbackUrl;
+          // Only redirect if we're still on the same page
+          if (window.location.href === universalLink) {
+            window.location = fallbackUrl;
+          }
         }, 2000);
       } else {
         // On desktop, redirect immediately
