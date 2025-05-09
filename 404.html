@@ -15,12 +15,26 @@
       var fallbackUrl = "https://www.polarfi.com";
 
       if (isMobile()) {
+        // Store the current URL to check if we're in a loop
+        var currentUrl = window.location.href;
+        
+        // If we're already on the fallback URL, don't redirect
+        if (currentUrl === fallbackUrl) {
+          return;
+        }
+
+        // If we're already on the universal link, go straight to fallback
+        if (currentUrl === universalLink) {
+          window.location = fallbackUrl;
+          return;
+        }
+
         // Try to open the app via universal link
         window.location = universalLink;
         
         // If app is not installed, after 2s, redirect to website
         setTimeout(function() {
-          // Only redirect if we're still on the same page
+          // Only redirect if we haven't moved to a different page
           if (window.location.href === universalLink) {
             window.location = fallbackUrl;
           }
