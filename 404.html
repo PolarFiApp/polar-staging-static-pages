@@ -10,15 +10,11 @@
 
     function openAppOrRedirect() {
       if (isMobile()) {
-        // Try to open the app first
-        window.location = window.location.origin;
-        
-        // If app doesn't open, redirect to website after 1s
-        setTimeout(function() {
-          window.location = "https://www.polarfi.com";
-        }, 1000);
+        // TODO: When app is live, give user option to go to website or go straight to App Store
+        window.location = "https://www.polarfi.com";
       } else {
         // On desktop, redirect immediately
+        // TODO: When app is live, direct to QR code to download app
         window.location = "https://www.polarfi.com";
       }
     }
